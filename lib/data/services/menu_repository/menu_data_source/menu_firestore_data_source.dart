@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../../exception/app_exception.dart';
 import '../../../model/menu.dart';
 import 'menu_data_source.dart';
-import '../../../../exception/app_exception.dart';
 
 class MenuFirestoreDataSource extends MenuDataSource {
   final FirebaseFirestore _firestore;
@@ -64,7 +65,6 @@ class MenuFirestoreDataSource extends MenuDataSource {
       await docRef.update({
         'title': menu.title,
         'description': menu.description,
-        'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (error) {
       throw AppException.from(error);

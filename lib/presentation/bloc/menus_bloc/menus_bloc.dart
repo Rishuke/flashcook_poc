@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../data/services/menu_repository/menu_repository.dart';
 import '../../../data/model/menu.dart';
 import 'package:flutter/foundation.dart';
@@ -44,7 +45,7 @@ class MenusBloc extends Bloc<MenusEvent, MenusState> {
 
     final result = await menusRepository.createMenu(
       menu: Menu(
-        id: DateTime.now().toIso8601String(),
+        id: FirebaseFirestore.instance.collection('menus').doc().id,
         title: event.title,
         description: event.description,
         createdAt: DateTime.now(),

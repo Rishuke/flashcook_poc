@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/model/menu.dart';
 import '../../router.dart';
 import '../bloc/menus_bloc/menus_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-@RoutePage()
 @RoutePage()
 class MenuCreateScreen extends StatelessWidget {
   static void navigateTo(BuildContext context) {
@@ -18,9 +18,6 @@ class MenuCreateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleController = TextEditingController();
     final descriptionController = TextEditingController();
-    final priceController = TextEditingController();
-    final categoryController = TextEditingController();
-    final imageUrlController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Créer un Menu')),
@@ -37,28 +34,13 @@ class MenuCreateScreen extends StatelessWidget {
                 controller: descriptionController,
                 decoration: const InputDecoration(labelText: 'Description'),
               ),
-              TextField(
-                controller: priceController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Prix'),
-              ),
-              TextField(
-                controller: categoryController,
-                decoration: const InputDecoration(labelText: 'Catégorie'),
-              ),
-              TextField(
-                controller: imageUrlController,
-                decoration: const InputDecoration(labelText: 'Image URL'),
-              ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   final menu = Menu(
-                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    id: FirebaseFirestore.instance.collection('menus').doc().id,
                     title: titleController.text,
                     description: descriptionController.text,
-                    createdAt: DateTime.now(),
-                    updatedAt: DateTime.now(),
                   );
 
                   context.read<MenusBloc>().add(CreateMenu(
