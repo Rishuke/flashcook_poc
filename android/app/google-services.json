@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "217842651514",
+    "project_id": "flashcook-poc",
+    "storage_bucket": "flashcook-poc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217842651514:android:5a5fc9cdc7b4852e98c6c3",
+        "android_client_info": {
+          "package_name": "com.example.flashcook_poc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEHbSmOEFOhb188MqbMSFPRs5rxH3we3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
