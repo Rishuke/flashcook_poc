@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'flashcook-poc.firebasestorage.app',
     measurementId: 'G-9N6N1FR3VP',
   );
+
 }

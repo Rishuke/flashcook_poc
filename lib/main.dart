@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flashcook_poc/app.dart';
 import 'package:flashcook_poc/firebase_options.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -7,21 +11,32 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(App());
-}
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-class App extends StatelessWidget {
-  const App({super.key});
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    FlutterError.dumpErrorToConsole(errorDetails);
+  };
+  await FirebaseCrashlytics.instance.sendUnsentReports();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FlashCook POC',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(
-        appBar: AppBar(title: Text('FlashCook POC Home')),
-        body: Center(child: Text('Welcome to FlashCook POC!')),
-      ),
-    );
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  if (kDebugMode) {
+    try {
+      final localhost = switch (defaultTargetPlatform) {
+        TargetPlatform.android => '10.0.2.2',
+        _ => 'localhost',
+      };
+
+      FirebaseFirestore.instance.useFirestoreEmulator(localhost, 8080);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
   }
+
+  runApp(App());
 }
