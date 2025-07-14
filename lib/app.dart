@@ -1,4 +1,9 @@
-import 'package:flashcook_poc/router.dart';
+import 'package:flashcook_poc/data/services/menu_repository/menu_data_source/menu_firestore_data_source.dart';
+import 'package:flashcook_poc/data/services/menu_repository/menu_repository.dart';
+import 'package:flashcook_poc/presentation/bloc/menus_bloc/menus_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'router.dart';
 import 'package:flutter/material.dart';
 
 final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
@@ -10,20 +15,34 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flashcook POC',
-      // theme: ThemeData.light().copyWith(
-      //   extensions: <ThemeExtension<AppTheme>>[lightTheme],
-      //   iconTheme: IconThemeData(color: lightTheme.colors.black),
-      // ),
-      // darkTheme: ThemeData.dark().copyWith(
-      //   extensions: <ThemeExtension<AppTheme>>[darkTheme],
-      //   iconTheme: IconThemeData(color: lightTheme.colors.white),
-      // ),
-      // localizationsDelegates: AppLocalizations.localizationsDelegates,
-      // supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: _router.config(
-        navigatorObservers: () => [routeObserver],
+    return RepositoryProvider(
+      create: (context) => MenuRepository(
+        menuDataSource: MenuFirestoreDataSource(),
+      ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => MenusBloc(
+              menusRepository: RepositoryProvider.of<MenuRepository>(context),
+            ),
+          ),
+        ],
+        child: MaterialApp.router(
+          title: 'Flashcook POC',
+          // theme: ThemeData.light().copyWith(
+          //   extensions: <ThemeExtension<AppTheme>>[lightTheme],
+          //   iconTheme: IconThemeData(color: lightTheme.colors.black),
+          // ),
+          // darkTheme: ThemeData.dark().copyWith(
+          //   extensions: <ThemeExtension<AppTheme>>[darkTheme],
+          //   iconTheme: IconThemeData(color: lightTheme.colors.white),
+          // ),
+          // localizationsDelegates: AppLocalizations.localizationsDelegates,
+          // supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: _router.config(
+            navigatorObservers: () => [routeObserver],
+          ),
+        ),
       ),
     );
   }
