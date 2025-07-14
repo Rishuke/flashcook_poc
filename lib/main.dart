@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flashcook_poc/app.dart';
-import 'package:flashcook_poc/firebase_options.dart';
+import 'app.dart';
+import 'firebase_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -24,19 +23,19 @@ Future<void> main() async {
     return true;
   };
 
-  if (kDebugMode) {
-    try {
-      final localhost = switch (defaultTargetPlatform) {
-        TargetPlatform.android => '10.0.2.2',
-        _ => 'localhost',
-      };
+  // if (kDebugMode) {
+  //   try {
+  //     final localhost = switch (defaultTargetPlatform) {
+  //       TargetPlatform.android => '10.0.2.2',
+  //       _ => 'localhost',
+  //     };
 
-      FirebaseFirestore.instance.useFirestoreEmulator(localhost, 8080);
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
+  //     FirebaseFirestore.instance.useFirestoreEmulator(localhost, 8080);
+  //   } catch (e) {
+  //     // ignore: avoid_print
+  //     print(e);
+  //   }
+  // }
 
   runApp(App());
 }
