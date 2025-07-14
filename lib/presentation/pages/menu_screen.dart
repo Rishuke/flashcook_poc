@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flashcook_poc/presentation/widgets/menu_list_item.dart';
+import '../widgets/menu_list_item.dart';
 import '../bloc/menus_bloc/menus_bloc.dart';
 import 'menu_create_screen.dart';
 import '../../router.dart';

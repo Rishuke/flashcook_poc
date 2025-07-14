@@ -1,4 +1,4 @@
-import 'package:flashcook_poc/data/model/menu.dart';
+import '../../data/model/menu.dart';
 import 'package:flutter/material.dart';
 
 class MenuListItem extends StatelessWidget {

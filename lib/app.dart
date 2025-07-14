@@ -1,6 +1,6 @@
-import 'package:flashcook_poc/data/services/menu_repository/menu_data_source/menu_firestore_data_source.dart';
-import 'package:flashcook_poc/data/services/menu_repository/menu_repository.dart';
-import 'package:flashcook_poc/presentation/bloc/menus_bloc/menus_bloc.dart';
+import 'data/services/menu_repository/menu_data_source/menu_firestore_data_source.dart';
+import 'data/services/menu_repository/menu_repository.dart';
+import 'presentation/bloc/menus_bloc/menus_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'router.dart';
