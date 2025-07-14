@@ -64,7 +64,6 @@ class MenuFirestoreDataSource extends MenuDataSource {
       await docRef.update({
         'title': menu.title,
         'description': menu.description,
-        'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (error) {
       throw AppException.from(error);

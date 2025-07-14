@@ -4,15 +4,15 @@ class Menu {
   final String id;
   final String title;
   final String description;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Menu({
     required this.id,
     required this.title,
     required this.description,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Menu.fromJson(Map<String, dynamic> json) {
@@ -21,10 +21,8 @@ class Menu {
         id: json['id'] as String,
         title: json['title'] as String,
         description: json['description'] as String,
-        createdAt:
-            (json['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
-        updatedAt:
-            (json['updatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+        createdAt: (json['createdAt'] as Timestamp?)?.toDate(),
+        updatedAt: (json['updatedAt'] as Timestamp?)?.toDate(),
       );
     } catch (e) {
       throw Exception('Error parsing Menu from JSON: $e');
@@ -51,6 +49,8 @@ class Menu {
         'id': id,
         'title': title,
         'description': description,
+        'createdAt': Timestamp.fromDate(createdAt!),
+        'updatedAt': Timestamp.fromDate(updatedAt!),
       };
 
   String get fullMenu => '$title $description';
